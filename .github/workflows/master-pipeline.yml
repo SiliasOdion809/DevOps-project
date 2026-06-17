@@ -1,0 +1,19 @@
+name: StartTech Full Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  infrastructure:
+    uses: ./.github/workflows/infrastructure-deploy.yml
+
+  backend:
+    needs: infrastructure
+    uses: ./.github/workflows/backend-ci-cd.yml
+
+  frontend:
+    needs: backend
+    uses: ./.github/workflows/frontend-ci-cd.yml
